@@ -32,6 +32,8 @@ jsonpath-ng = "*"
 click = "*"
 update = "*"
 inquirer = "*"
+responses = "*"
+python-gitlab = "*"
 
 [requires]
 python_version = "3"
