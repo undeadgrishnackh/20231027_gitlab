@@ -167,4 +167,4 @@ requirements.txt*
 downloaded_files/
 
 # GitLab Project Token
-.gl_token
+.gl_token.*

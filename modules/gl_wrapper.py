@@ -1,12 +1,12 @@
 import gitlab
+from gitlab.v4.objects import Project
 
 
-def print_the_title():
-    print("😊 Welcome to Dummy Kata")
+USER_TOKEN_FILE = ".gl_token.user"
 
 
 def access_token() -> str:
-    return open(".gl_token", "r", encoding="UTF-8").read()
+    return open(USER_TOKEN_FILE, "r", encoding="UTF-8").read()
 
 
 def init_gl_api(token: str) -> gitlab.Gitlab:
@@ -23,12 +23,21 @@ def authenticate(git_lab: gitlab.Gitlab) -> bool:
         return False
 
 
-def get_projects(git_lab: gitlab.Gitlab) -> bool:
+def get_projects(git_lab: gitlab.Gitlab) -> [Project]:
     try:
-        git_lab.projects.list(iterator=True)
-        return True
+        return git_lab.projects.list()
     # pylint: disable=W0718
     except Exception as exception:
         print("😱 Fatal Exception")
         print(exception)
-        return False
+        return None
+
+
+def get_project_details(git_lab: gitlab.Gitlab, project_id: int) -> Project | None:
+    try:
+        return git_lab.projects.get(project_id)
+    # pylint: disable=W0718
+    except Exception as exception:
+        print("😱 Fatal Exception")
+        print(exception)
+        return None
